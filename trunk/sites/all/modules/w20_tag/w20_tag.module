@@ -1,0 +1,190 @@
+<?php
+
+function w20_tag_init(){
+	global $vfid;
+	
+	//include_once(drupal_get_path('module', 'w20_tag') .'/inc/retorno-boleto.inc');
+}
+
+/*
+function w20_tag_menu() {
+	global $vfid;
+
+	$items = array();
+
+	$items['cobrebem/retorno-boleto'] = array(
+		'title' => 'Retorno dos boletos da cobrebem',
+		'description' => '',
+		'page callback' => 'w20_tag_retorno_boleto',
+		'access callback' => 'w20_tag_access',
+		//'file' => 'inc/folder.show.inc',
+		'type' => MENU_NORMAL_ITEM,
+	);
+	
+
+	return $items;
+} 
+*/
+
+function w20_tag_preprocess_page(&$variables) {
+
+	if (arg(2) == 'edit') return;
+	$variables['content'] = preg_replace_callback("/\[\[(.*?)\]\]/", "w20_tag_tag", $variables['content']);
+}
+
+function w20_tag_preprocess_node(&$variables) {
+	global $nid;
+	
+	$node = node_load($nid);
+	
+	if (arg(2) == 'edit') return;
+	//if ($node->field_page_layout[0]['value'] != '') $variables['template_files'][] = drupal_get_path('module', 'w20_tag') . '/tpl/node-page-' . $node->field_page_layout[0]['value'] . '.tpl.php';
+	
+}
+
+function w20_tag_access() {
+  global $user;
+  
+  return true;
+  //return user_access('access content') && $user->uid;
+    
+}
+
+
+function w20_tag_tag($conteudo) {
+
+	if (substr($conteudo[1], 0, 1) == "\\") return '[['.substr($conteudo[1], -1 * (strlen($conteudo[1])-1)).']]';
+	
+	$conteudo[1] = str_replace(' ', '', $conteudo[1]);
+
+	$partes = explode(':', trim($conteudo[1]));
+
+	parse_str(str_replace('&amp;', '&', $partes[1]));
+
+    switch ($partes[0]) {
+		case 'pagina':
+			return w20_tag_node_view($pagina);
+			break;
+		case 'foto':
+			return w20_tag_foto($pagina, $numero, $largura, $altura);
+			break;
+		case 'carrossel':
+			return w20_tag_carrossel($pagina, $largura, $altura);
+			break;
+		case 'slideshow':
+			return w20_tag_slideshow($pagina, $largura, $altura, $effect);
+			break;
+	}
+
+}
+
+
+function w20_tag_foto($pagina = null, $id = null, $largura = null, $altura = null) {
+	
+	if ($pagina == null) {
+		if (substr(substr($_SERVER['REQUEST_URI'], 1), -1) == '/') $url_m = substr($_SERVER['REQUEST_URI'], 1, strlen($_SERVER['REQUEST_URI']) - 2);
+		else $url_m = substr($_SERVER['REQUEST_URI'], 1);
+		$url_src = db_fetch_array(db_query("SELECT src FROM {url_alias} WHERE dst = '".$url_m."' LIMIT 1"));
+		if ($url_src['src'] != null) $src = explode('/', $url_src['src']);
+		else $src = explode('/', $url_m);
+		
+		$nodei = node_load($src[1]);
+	} else $nodei = node_load($pagina);
+	if ($id == null) $id = 0;
+	if ($largura != null OR $altura != null) {
+		if ($largura != null) $width = ' width = "' . $largura . '" ';
+		if ($altura != null) $height = ' height = "' . $altura . '" ';
+		$img = '<img src = "/' . $nodei->field_page_imagem[$id - 1]['filepath'] .'" ' . $height . ' ' . $width . ' />' ;
+	} else $img = theme('imagecache', '240x160', $nodei->field_page_imagem[$id - 1]['filepath'], '', '',  array('id'=>'small_image_id','class'=>'image'));
+	
+	$saida = '<a rel="lightbox" href="/' . $nodei->field_page_imagem[$id - 1]['filepath'] . '" > ' . $img . '</a> ';
+
+	return $saida;
+
+}
+
+function w20_tag_node_view($id) {
+	
+	return node_view(node_load($id), false, true, true);
+
+}
+
+function w20_tag_carrossel ($pagina = null, $largura = null, $altura = null) {
+
+	if ($pagina == null) {
+		if (substr(substr($_SERVER['REQUEST_URI'], 1), -1) == '/') $url_m = substr($_SERVER['REQUEST_URI'], 1, strlen($_SERVER['REQUEST_URI']) - 2);
+		else $url_m = substr($_SERVER['REQUEST_URI'], 1);
+		if ($url_m == null) $url_m = 'home';
+		$url_src = db_fetch_array(db_query("SELECT src FROM {url_alias} WHERE dst = '".$url_m."' LIMIT 1"));
+		if ($url_src['src'] != null) $src = explode('/', $url_src['src']);
+		else $src = explode('/', $url_m);
+		
+		$nodei = node_load($src[1]);
+	} else $nodei = node_load($pagina);
+	
+	$i = 0;
+	$items = array();
+	foreach ($nodei->field_page_imagem as $key => $var) {
+		if ($largura != null OR $altura != null) {
+			if ($largura != null) $width = ' width = "' . $largura . '" ';
+			if ($altura != null) $height = ' height = "' . $altura . '" ';
+			$items[$i] = '<img src = "/' . $nodei->field_page_imagem[$key]['filepath'] .'" ' . $width . ' ' . $height . ' />' ;
+		} else $items[$i] = theme('imagecache', '114x76', $nodei->field_page_imagem[$key]['filepath'], '', '',  array('id'=>'small_image_id','class'=>'image'));
+		$i++;
+	}
+	
+	$options = array('vertical' => FALSE, 'wrap' => 'circular', 'scroll' => 3);
+ 	$saida .= theme('jcarousel', $items, $options);
+ 	
+	return $saida;
+	
+}
+
+
+
+function w20_tag_slideshow ($pagina, $largura = null, $altura = null, $effect = null) {
+
+	static $jsc;
+	if ($pagina == null) {
+		if (substr(substr($_SERVER['REQUEST_URI'], 1), -1) == '/') $url_m = substr($_SERVER['REQUEST_URI'], 1, strlen($_SERVER['REQUEST_URI']) - 2);
+		else $url_m = substr($_SERVER['REQUEST_URI'], 1);
+		if ($url_m == null) $url_m = 'home';
+		$url_src = db_fetch_array(db_query("SELECT src FROM {url_alias} WHERE dst = '".$url_m."' LIMIT 1"));
+		if ($url_src['src'] != null) $src = explode('/', $url_src['src']);
+		else $src = explode('/', $url_m);
+		
+		$nodei = node_load($src[1]);
+	} else $nodei = node_load($pagina);
+	
+	drupal_add_css(drupal_get_path('module', 'w20_tag').'/css/slideshow.css');
+	
+	if ($jsc == '') $saida .= '<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+				<script type="text/javascript" src="'.drupal_get_path('module', 'w20_tag').'/js/slideshow.jquery.cycle.all.js"></script>
+		';
+	$jsc++;	
+	$saida .= '<script type="text/javascript">		
+		$(document).ready(function() {
+			$(\'.slideshow'.$jsc.'\').cycle({
+				fx: \''.$effect.'\' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+			});
+		});
+		</script><div class="slideshow'.$jsc.'">
+		';
+	
+	foreach ($nodei->field_page_imagem as $key => $var) {
+		if (($largura != null OR $altura != null) AND $nodei->field_page_imagem[$key]['filepath'] != '') {
+			if ($largura != null) $width = ' width = "' . $largura . '" ';
+			if ($altura != null) $height = ' height = "' . $altura . '" ';
+			$saida .= '<img src = "/' . $nodei->field_page_imagem[$key]['filepath'] .'" ' . $width . ' ' . $height . ' />' ;
+		} else if ($nodei->field_page_imagem[$key]['filepath'] != '') $saida .= theme('imagecache', '114x76', $nodei->field_page_imagem[$key]['filepath'], '', '',  ''); 
+		//'<img src = "/' . $nodei->field_page_imagem[$key]['filepath'] . '" /> ';
+	}
+	
+	$saida .= '</div> ';
+	
+	
+	return $saida;
+	
+}
+
+?>

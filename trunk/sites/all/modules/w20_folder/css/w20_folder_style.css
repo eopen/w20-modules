@@ -1,0 +1,68 @@
+.w20-folder-container {
+	margin: 20px 0;
+	clear: both;
+	padding: 5px;
+}
+
+.w20-folder-breadcrumb .w20-folder-breadcrumb-img-folder {
+	padding: 0 5px 0 0;
+	margin: 4px 0 0 0;
+	float: left;
+	display: inline;
+}
+
+.w20-folder-breadcrumb .w20-folder-breadcrumb-img-engrenagem {
+	display: inline;
+	padding: 5px 0 0 5px;
+}
+
+.w20-folder-container li {
+	display: inline;
+}
+
+.w20-folder-tree-container {
+	margin: 10px;
+	background: #fff;
+	padding: 10px;
+}
+
+.w20-folder-tree-container li {
+	display: block;
+	margin: 2px 0;
+}
+
+.w20-folder-folder-img-page,
+.w20-folder-folder-img-folder {
+	padding: 0 5px 0 0;
+	margin: 2px 0 0 0;
+	float: left;
+	display: inline;
+}
+
+.w20-folder-tree-file-ul {
+	margin: 0 0 0 20px;
+}
+
+.w20-folder-tree-file-ul li {
+	clear: both;
+	margin: 1px 0;
+}
+
+.w20-folder-new-buttons {
+	margin: 20px 0;
+}
+
+.w20-folder-new-file {
+	float: left;
+	margin: 0 10px 0 0;
+	background: #c0c0c0;
+	text-align: center;
+	padding: 5px 15px;
+}
+
+.w20-folder-new-folder {
+	margin: 0 10px 0 0;
+	background: #c0c0c0;
+	text-align: center;
+	padding: 5px 15px;
+}

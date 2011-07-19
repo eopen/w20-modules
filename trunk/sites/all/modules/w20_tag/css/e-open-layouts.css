@@ -1,0 +1,68 @@
+.modelo-1b .field-field-imagem img,
+.modelo-1c .field-field-imagem img,
+.modelo-1d .field-field-imagem img,
+.modelo-1i .field-field-imagem  img.image-principal {
+	float: left;
+	margin: 3px 10px 0 0;
+}
+
+.modelo-1e .images-modelo-1e,
+.modelo-1f .images-modelo-1f {
+	overflow: hidden;
+	float: left;
+	margin: 0 10px 5px 0;
+}
+
+.modelo-1e .field-field-imagem img {
+	float: none;
+	clear: both;
+	display: block;
+	margin: 0 0 8px 0 !important;
+}
+
+.modelo-1f .images-modelo-1f {
+	width: 240px !important;
+}
+
+.modelo-1f img.image-principal img {
+	display: block;
+}
+
+#images-pequenas ul {
+	list-style: none !important;
+	overflow: hidden;
+	background-image: none !important;
+	padding: 5px 0;
+}
+
+#images-pequenas ul li {
+	list-style: none !important;
+	padding: 2px !important;
+	margin: 0 !important;
+	float: left;
+	background-image: none !important;
+}
+
+#images-pequenas ul li a {
+	list-style: none !important;
+	background-image: none !important;	
+}
+
+.modelo-1g .field-field-imagem img,
+.modelo-1h .field-field-imagem img,
+.modelo-1i .field-field-imagem img.image-adicionais {
+	margin: 3px 5px !important;
+}
+
+.modelo-1j .field-field-imagem {
+	margin: 0 auto 10px !important;
+}
+
+.filefield-element,
+td.content-multiple-drag  {
+   height: 80px !important;
+}
+
+.modelo-layout-item {
+	min-height: 170px !important;
+}

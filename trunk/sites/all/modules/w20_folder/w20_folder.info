@@ -1,0 +1,8 @@
+name = Pastas e Nodes
+description = Bloco de Exibição das Pastas e Nodes
+package = W20 - Padrão
+version = "6.x-1.x"
+core = "6.x"
+project = "w20_folder"
+datestamp = "1232216138"
+

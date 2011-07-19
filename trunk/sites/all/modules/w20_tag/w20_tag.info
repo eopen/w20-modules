@@ -1,0 +1,8 @@
+name = W20 - Tag
+description = Módulo que converte as tags do W20
+package = W20 - Padrão
+version = "6.x-1.x"
+core = "6.x"
+project = "w20_tag"
+datestamp = "1232216138"
+

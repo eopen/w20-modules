@@ -1,0 +1,57 @@
+#cabecalho-a1 {}
+#cabecalho-regioes {
+	margin: 0 auto !important;
+	width: 99%;
+	overflow: hidden;
+}
+
+#cabecalho-b1,
+#cabecalho-b2,
+#cabecalho-b3 {
+	padding: 5px;
+	margin: 0 1%;
+}
+
+#cabecalho-b1,
+#cabecalho-b3 {
+	width: 30%;
+	float:left;
+}
+
+#cabecalho-b2 {
+	float: left;
+	width: 30%;
+}
+
+#conteudo-barratopo {}
+#conteudo-topo {}
+#conteudo-fundo {}
+#rodape-topo {}
+
+#rodape-regioes {
+	margin: 0 auto !important;
+	width: 99%;
+	overflow: hidden;
+}
+
+#rodape-a1,
+#rodape-a2,
+#rodape-a3 {
+	padding: 5px;
+	margin: 0 1%;
+}
+
+#rodape-a1,
+#rodape-a3 {
+	width: 30%;
+	float:left;
+}
+
+#rodape-a2 {
+	float: left;
+	width: 30%;
+}
+
+#rodape-fundo {
+	clear: both;
+}

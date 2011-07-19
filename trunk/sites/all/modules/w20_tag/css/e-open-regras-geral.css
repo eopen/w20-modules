@@ -1,0 +1,104 @@
+.modelo-layout-item  {
+	clear: both;
+	margin: 5px 0 150x 0;
+	border: solid 1px #888;
+}
+
+/* --- chamado --- */
+.node-type-chamado h2.comments-header {
+	padding: 10px 0 0 0;
+}
+
+.node-type-chamado .indented,
+.node-type-chamado #comments {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.node-type-chamado .field-chamado-status {
+	padding: 10px;
+	font-size: 16px;
+	color: #fff;
+	background: #888;
+	width: 70px;
+	float: right;
+	text-align: right;
+	margin: 0 0 0 5px !important;
+}
+
+.node-type-chamado .comment {
+	border: solid 1px #efefef;
+	margin: 0 !important;
+}
+
+.node-type-chamado .field-chamado-mensagem {
+	margin: 0 10px 20px;
+}
+
+.node-type-chamado .comment h3 a {
+	display: none;
+}
+
+.node-type-chamado .comment .submitted {
+	float: right;
+	padding: 5px;
+	background: #888;
+	color: #fff;
+	margin: 0 0 5px 5px;
+	width: 200px;
+}
+
+.node-type-chamado .comment .submitted  a {
+	color: #fff !important;
+}
+
+.node-type-chamado .comment .numero h3 {
+	font-size: 26px;
+	color: #888;
+	border-top: solid 3px #888;
+	margin: 0 0 10px 0;
+	font-weight: 100;
+	padding: 5px 0 0 0;
+}
+
+.node-type-chamado .comment .content {
+	padding: 0 10px 10px 10px;
+}
+
+.node-type-chamado .comment table.comment-upload-attachments {
+	width: 80%;
+}
+
+.node-type-chamado .comment ul.links {
+	background: #efefef;
+	color: #000;
+	padding: 10px;
+}
+
+.node-type-chamado .comment ul.links a {
+	color: #000;
+}
+
+.node-type-chamado #comments .box {
+	margin: 20px 0 !important;
+	border: solid 1px #efefef;
+	padding: 10px;
+}
+
+.node-type-chamado #comments .box h2 {
+	font-size: 26px;
+	color: #888;
+	font-weight: 100;
+}
+
+.novo-chamado {
+	background: #efefef;
+	color: #000;
+	padding: 10px;
+	width: 150px;
+	margin: 0 0 20px 0;
+}
+
+.view-id-links .views-row {
+    margin: 0 0 15px 0;
+}

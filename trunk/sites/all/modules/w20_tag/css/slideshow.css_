@@ -1,0 +1,32 @@
+#box1, #box2, #box3, #box4{
+	position:absolute;
+}
+
+/* Sample 5*/
+#box5 div{
+	position:absolute;
+	background:#fff;
+	width:480px;
+	height:240px;
+}
+#box5 h3{
+	padding:0 0 10px 0;
+}
+#box5 img{
+	position:static;
+	float:left;
+	width:200px;
+	height:140px;
+	margin:0 10px 10px 0;
+}
+.mask{
+	position:relative;
+	width:480px;
+	height:240px;
+	overflow:hidden;
+}
+.mask img{
+	position:absolute;
+	display:block;
+	border:none;
+}

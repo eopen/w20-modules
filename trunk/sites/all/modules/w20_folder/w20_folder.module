@@ -1,0 +1,80 @@
+<?php
+
+$vfid = 4; //vocabulary - folder ID
+
+function w20_folder_init(){
+	global $vfid;
+	
+	//drupal_add_css(drupal_get_path('module', 'w20_folder') .'/css/style.css', 'module', 'all', FALSE);
+	
+	
+ 	drupal_add_css(drupal_get_path('module', 'w20_folder') .'/css/w20_folder_style.css');
+	include_once(drupal_get_path('module', 'w20_folder') .'/inc/folder.inc');
+    include_once(drupal_get_path('module', 'w20_folder') .'/inc/folder.page.inc');
+	include_once(drupal_get_path('module', 'w20_folder') .'/inc/folder.show.inc');
+	include_once(drupal_get_path('module', 'w20_folder') .'/inc/folder.edit.inc');
+	
+}
+  
+function w20_folder_help($path, $arg) {
+    
+	switch ($path) {
+        case "w20/folder":
+			$output = '<div class="w20-folder-help">'.  t("Sistema desenvolvido para que você mesmo possa gerenciar suas páginas, arquivos, vídeos e imagens no site. A interface foi desenvolvida para ser o mais intuituva possível. No site <a href='http://w20.com.br' target=_blank>W20</a> tem vários tutoriais on-line que podem te ajudar a manusear o sistema. Caso precise de um suporte com um analista, entre em contato conosco pelo site.") .'</div>';
+            break;
+    }
+    
+	return $output;
+}
+
+function w20_folder_menu() {
+	global $vfid;
+
+	$items = array();
+
+	$items['w20/folder'] = array(
+		'title' => 'Sistema de gerenciamento de páginas',
+		'description' => 'Listagem das páginas usando o sistema do W20',
+		'page callback' => 'w20_folder_show',
+		'access callback' => 'w20_folder_access',
+		//'file' => 'inc/folder.show.inc',
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	$items['w20/folder/page/add/%'] = array(
+		'title' => 'Sistema de gerenciamento de páginas',
+		'description' => 'Listagem das páginas usando o sistema do W20',
+		'page callback' => 'w20_folder_page_add',
+		'access callback' => 'w20_folder_edit_access',
+		//'file' => 'inc/folder.edit.inc',
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+	$items['w20/folder/%/edit'] = array(
+		'title' => 'Sistema de gerenciamento de páginas',
+		'description' => 'Listagem das páginas usando o sistema do W20',
+		'page callback' => 'w20_folder_edit',
+		'access callback' => 'w20_folder_edit_access',
+		//'file' => 'inc/folder.edit.inc',
+		'type' => MENU_NORMAL_ITEM,
+	);
+
+    $items['w20/folder/%/add'] = array(
+		'title' => 'Sistema de gerenciamento de páginas',
+		'description' => 'Listagem das páginas usando o sistema do W20',
+		'page callback' => 'w20_folder_add',
+		'access callback' => 'w20_folder_access',
+		//'file' => 'inc/folder.show.inc',
+		'type' => MENU_NORMAL_ITEM,
+	);
+	
+	return $items;
+
+}
+
+  
+
+//drupal_set_message(t('All content in this forum has been marked as read'));
+//drupal_goto('forum/' . $current_forum_id);
+
+?>
